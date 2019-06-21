@@ -15,11 +15,11 @@
 </head> 
 <body> 
     
-<p>Date updated: June 21 3:32 pm</p>
+<p>Date updated: June 21 4:07 pm</p>
 <section id="contact">
 <h1>What is your favorite place to travel?</h1> 
 <p>I am building a directory of the sweetest travel destinations.</p>  
-<form name="travel" onsubmit="identify(event)">
+<form method="POST" name="travel" onsubmit="identify(event)" action="thankyou.html">
      What is your favorite travel destination?
     <input name="destination" required="" size="81" type="text"/> 
     <br><br><br> 
@@ -33,7 +33,6 @@
     Email: <input name="email" required="" size="75" type="email"/> 
     <br><br>
     <input name="submit" type="submit" value="submit"/>
-    <input type="hidden" name="redirect" value="/thankyou.html"/>
 </form>
 </section>
     <script type="text/javascript">
