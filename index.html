@@ -11,13 +11,11 @@
   name: "Destination Form",
 });
   }}();
-	</script>
-<script src="jquery-3.4.1.min.js"></script>
-    
+	</script>    
 </head> 
 <body> 
     
-<p>Date updated: June 21 1:53 pm</p>
+<p>Date updated: June 21 1:55 pm</p>
 <section id="contact">
 <h1>What is your favorite place to travel?</h1> 
 <p>I am building a directory of the sweetest travel destinations.</p>  
@@ -60,16 +58,5 @@
         });
       }
     </script>
-<script>
-		$(document).ready(function() {
-		$('#contact').submit(function(e) {
-			e.preventDefault();
-			
-			var formData = $(this).serializeArray();
-			analytics.track('Contact Form Submitted', formData);
-			console.log("Track call should have been made");
-		});
-	})
-</script>
 </body> 
 </html>
