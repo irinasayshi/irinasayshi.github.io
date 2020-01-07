@@ -11,8 +11,9 @@
 	
   analytics.ready(function() {
 	console.log("Hello World");
-   	//ga(function (tracker) {
-        //clientId = tracker.get('clientId');
+	var isNewSession = amplitude.getInstance().isNewSession();
+	if (isNewSession == true)
+	console.log("Amplitude New Session");
   });
 </script>
 
@@ -20,7 +21,7 @@
 <body>
     <p><a href="https://app.segment.com/segment-irina.gorelik/sources/javascript/overview">Source: Javascript</a></p> 
     <p><a href="/thankyou.html">Go to Thank you page</a></p>
-<p>Date updated: Jan 7</p>
+<p>Date updated: Jan 7 1</p>
 <section id="contact">
 <h1>What is your favorite place to travel?</h1> 
 <p>I am building a directory of the sweetest travel destinations.</p>  
