@@ -9,17 +9,33 @@
   analytics.page();
   }}();
 	
+  //analytics.ready(function() {
+	//console.log("Hello World");
+	//console.log(analytics.user());
+  //});
+	
   analytics.ready(function() {
-	console.log("Hello World");
-	console.log(analytics.user());
-  });
+      ga('create', 'UA-142172776-2', 'auto', { name: 'combined' });
+      ga('combined.send', 'pageview');
+    });
+    analytics.on('track', function(event, properties, options) {
+      // custom logic based on event properties
+      // Track events from analytics
+      ga('combined.send', {
+        hitType: 'event',
+        eventCategory: 'All',
+        eventAction: event,
+        eventLabel: 'All'
+      });
+    });
+	
 </script>
 
 	</head> 
 <body>
     <p><a href="https://app.segment.com/segment-irina.gorelik/sources/javascript/overview">Source: Javascript</a></p> 
     <p><a href="/thankyou.html">Go to Thank you page</a></p>
-<p>Date updated: Jan 7 3</p>
+<p>Date updated: Jan 22 1</p>
 <section id="contact">
 <h1>What is your favorite place to travel?</h1> 
 <p>I am building a directory of the sweetest travel destinations.</p>  
