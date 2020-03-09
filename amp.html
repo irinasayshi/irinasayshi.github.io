@@ -13,8 +13,8 @@
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
 </head>
 <body>Hello, AMP world.
-   <p>last edit: March 3 - 3</p>
-   <p><a href="/thankyou.html">Thank You Page</a></p>
+   <p>last edit: March 9 - 1</p>
+   <p><a href="/thankyou.html" class='track-call'>Thank You Page</a></p>
  <amp-analytics type="segment">
 <script type="application/json">
   {
@@ -24,6 +24,23 @@
     },
     "linkers": {
       "enabled": true
+    },
+    "triggers": {
+      "click": {
+        "on": "click",
+        "selector": ".track-call",
+        "request": "track",
+        "vars": {
+          "event": "Read More Clicked"
+        }
+      }
+    },
+    "extraUrlParams": {
+      "properties.type": "article",
+      "properties.published_at": "2016-06-28",
+      "properties.author": "John Doe",
+      "properties.button_type": "read-more",
+      "properties.article_id": "my-article-id"
     }
   }
 </script>
