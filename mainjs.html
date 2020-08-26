@@ -43,17 +43,15 @@
     <p><a href="https://app.segment.com/segment-irina.gorelik/sources/javascript/overview">Source: Main Javascript</a></p> 
     <p><a href="/page1.html?ajs_uid=123456789abcd&ajs_event=Clicked%20Email&ajs_aid=abc123&ajs_prop_emailCampaign=First+Touch&ajs_trait_name=Karl+Jr">Page 1 visit</a></p> 
 
-<p>Date updated: aug 26 - 8</p>
+<p>Date updated: aug 26 - 9</p>
 <section id="contact">
-<h1>What is your favorite place to travel?</h1> 
-<p>I am building a directory of the sweetest travel destinations.</p>  
-<form name="travel" onsubmit="identify(event)">
+<form method="POST" name="travel" onsubmit="identify(event)" action="/thankyou.html">
      What is your favorite travel destination?
     <input name="destination" required="" size="81" type="text"/> 
     <br><br><br> 
     Any recommendations (cool things to do, places to visit or restaurants to eat)? 
     <br><br> 
-    <textarea cols="81" name="details" required="" rows="2">
+    <textarea cols="81" name="details" required="" rows="10">
     </textarea> 
     <br><br> 
     Name: <input name="fullname" required="" size="75" type="text"/> 
@@ -61,7 +59,7 @@
     Email: <input name="email" required="" size="75" type="email"/> 
     <br><br>
     <input name="submit" type="submit" value="submit"/>
-
+</form>
 
 <!--content security policy example
 <meta
@@ -69,7 +67,6 @@
             content="connect-src 'self' https://api.segment.io https://api-iam.intercom.io wss://nexus-websocket-a.intercom.io https://api.stg-koho.ca https://sentry.io https://assets.ua.gpsrv.com https://assets.koho.ca https://api.staging.pungle.co https://sdk.iad-01.braze.com; style-src 'self' 'unsafe-inline' http://maxcdn.bootstrapcdn.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.segment.com https://widget.intercom.io https://js.intercomcdn.com https://js.appboycdn.com; font-src 'self' https://js.intercomcdn.com http://maxcdn.bootstrapcdn.com; img-src 'self' https://static.intercomassets.com data: https://*.koho.ca https://*.amazonaws.com https://appboy-images.com; frame-src https://koho-iframe.private.fin.ag https://alpha-app.stg-koho.ca; media-src https://js.intercomcdn.com; default-src 'self'"
         />-->
 	
-</form> 
 </section>
     <script type="text/javascript">
       function identify(e){
@@ -96,6 +93,8 @@
 	analytics.track('new track call', user, function() {
             window.location.href = "";
         });
+	      
+	console.log("the form has been submitted");
       }
     </script>
 </body> 
