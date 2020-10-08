@@ -36,13 +36,23 @@
     });
     */
 	
+   analytics.on('track', function(event, properties, options){
+   // custom logic based on event properties
+  console.log("hello world - track")
+});
+	
+ analytics.on('reset', function(event, properties, options){
+   // custom logic based on event properties
+  console.log("hello world - reset")
+});
+	
 </script>
 	</head> 
 <body>
     <p><a href="https://app.segment.com/segment-irina.gorelik/sources/javascript/overview">Source: Main Javascript</a></p> 
     <p><a href="/page1.html?ajs_uid=123456789abcd&ajs_event=Clicked%20Email&ajs_aid=abc123&ajs_prop_emailCampaign=First+Touch&ajs_trait_name=Karl+Jr">Page 1 visit</a></p> 
 
-<p>Date updated: aug 26 - 11</p>
+<p>Date updated: oct 8 - 1</p>
 <section id="contact">
 <form method="POST" name="travel" onsubmit="identify(event)" action="/thankyou.html">
      What is your favorite travel destination?
