@@ -52,9 +52,9 @@
 <p><a href="https://app.segment.com/segment-irina-gorelik/sources/javascript/overview">Source: mainAJS Source</a></p>
     <p><a href="/page1.html?ajs_uid=123456789abcd&ajs_event=Clicked%20Email&ajs_aid=abc123&ajs_prop_emailCampaign=First+Touch&ajs_trait_name=Karl+Jr">Page 1 visit</a></p> 
 
-<p>Date updated: dec 16 - 3</p>
+<p>Date updated: dec 16 - 4</p>
 <section id="contact">
-<form method="POST" name="travel" onsubmit="identify(event)" action="https://www.google.com/">
+<!--<form method="POST" name="travel" onsubmit="identify(event)" action="https://www.google.com/">
      What is your favorite travel destination?
     <input name="destination" required="" size="81" type="text"/> 
     <br><br><br> 
@@ -68,7 +68,13 @@
     Email: <input name="email" required="" size="75" type="email"/> 
     <br><br>
     <input name="submit" type="submit" value="submit"/>
-</form>
+</form>-->
+	
+        <form method="POST" name="travel" onsubmit="identify(event)">
+          <input type="hidden" name="fullname" value="Irina" />
+          <input type="hidden" name="city" value="Japan;" />
+          <input onclick="window.location.href = 'https://irinasayshi.github.io/thankyou.html';" type="submit" value="Submit" />
+        </form>	
 
 <!--content security policy example
 <meta
