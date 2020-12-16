@@ -52,7 +52,7 @@
 <p><a href="https://app.segment.com/segment-irina-gorelik/sources/javascript/overview">Source: mainAJS Source</a></p>
     <p><a href="/page1.html?ajs_uid=123456789abcd&ajs_event=Clicked%20Email&ajs_aid=abc123&ajs_prop_emailCampaign=First+Touch&ajs_trait_name=Karl+Jr">Page 1 visit</a></p> 
 
-<p>Date updated: oct 8 - 1</p>
+<p>Date updated: dec 16 - 1</p>
 <section id="contact">
 <form method="POST" name="travel" onsubmit="identify(event)" action="/thankyou.html">
      What is your favorite travel destination?
@@ -79,7 +79,7 @@
 </section>
     <script type="text/javascript">
       function identify(e){
-        e.preventDefault();
+       // e.preventDefault();
         var form = e.target;
         var email = form["email"].value;
         var fullname = form["fullname"].value;
