@@ -13,7 +13,7 @@
 	</head> 
 <body>
     <p><a href="https://app.segment.com/segment-irina-gorelik/sources/visual_tagger_source/overview">Source: VT Testing</a></p> 
-<p>Date updated: Dec 9 - 2</p>
+<p>Date updated: Dec 18 - 1</p>
 <section id="contact">
 <h1>What is your favorite place to travel?</h1> 
 <p>I am building a directory of the sweetest travel destinations.</p>  
@@ -42,6 +42,9 @@
 </form>
 </section>
 	
+<a href="#" title="Intercom Test!" id="intercom">Intercom Test!</a>
+
+
 <!--iframe src="https://irinasayshi.github.io/mainjs.html" height="500" width="500" title="Main JS"></iframe-->
 	
 <!--This section is used to test dynamic page selectors and property selectors-->
@@ -113,7 +116,17 @@
 	</div>
 	</div>
 		
+<script>
+var intercom = document.getElementById('intercom');
+intercom.onclick = sendEvent;
 
+
+function sendEvent() {
+  analytics.identify('intercomEventTest'); 
+  analytics.track('intercom event submitted'); 
+}
+
+	</script>
 	
 </body> 
 </html>
