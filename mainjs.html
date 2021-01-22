@@ -50,10 +50,9 @@
 </script>
 	</head> 
 <body style="background-color:powderblue;">
-<p><a href="https://app.segment.com/segment-irina-gorelik/sources/javascript/overview">Source: mainAJS Source</a></p>
-    <p><a href="/page1.html?ajs_uid=123456789abcd&ajs_event=Clicked%20Email&ajs_aid=abc123&ajs_prop_emailCampaign=First+Touch&ajs_trait_name=Karl+Jr">Page 1 visit</a></p> 
+<p><a id="free-trial-link" href="https://app.segment.com/segment-irina-gorelik/sources/javascript/overview">Source: mainAJS Source</a></p>
 
-<p>Date updated: jan  13 - 1</p>
+<p>Date updated: jan  21 - 1</p>
 <section id="contact">
 <form method="POST" name="travel" onsubmit="identify(event)" action="/thankyou.html">
      What is your favorite travel destination?
@@ -82,6 +81,12 @@
 	
 </section>
     <script type="text/javascript">
+var link = document.getElementById('free-trial-link');
+
+analytics.trackLink(link, 'Clicked Free-Trial Link', {
+  plan: 'Enterprise'
+});
+	    
       function identify(e){
        // e.preventDefault();
         var form = e.target;
