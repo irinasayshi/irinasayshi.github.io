@@ -1,0 +1,260 @@
+<html>
+  <head>
+    <title>AJS tester</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <button class="btn btn-primary" onclick="loadSegment()">Load</button>
+      </div>
+
+      <input
+        class="form-control"
+        type="text"
+        name="writeKey"
+        placeholder="Write key"
+      />
+    </div>
+    <p></p>
+
+    <button class="btn btn-primary" onclick="analytics.track('Product Viewed')">
+      Track: Product Viewed
+    </button>
+    <button
+      class="btn btn-primary"
+      onclick="analytics.track('Checkout Started')"
+    >
+      Track: Checkout Started
+    </button>
+    <button class="btn btn-primary" onclick="analytics.track('Coupon Denied')">
+      Track: Coupon Denied
+    </button>
+    <br />
+    <br />
+    <button class="btn btn-primary" onclick="analytics.page('Home')">
+      Page: Home
+    </button>
+    <button class="btn btn-primary" onclick="analytics.page('About')">
+      Page: About
+    </button>
+    <button class="btn btn-primary" onclick="analytics.page('Contact')">
+      Page: Contact
+    </button>
+    <br />
+    <br />
+    <button class="btn btn-primary" onclick="analytics.identify('fathy')">
+      Identify: fathy
+    </button>
+    <button class="btn btn-primary" onclick="analytics.identify('spongebob')">
+      Identify: spongebob
+    </button>
+    <br />
+    <br />
+
+    <button class="btn btn-primary" onclick="addMiddlewares()">
+      Add middlewares
+    </button>
+
+    <script>
+      function loadSegment() {
+        const writeKey = document.getElementsByName("writeKey")[0].value;
+        // const host = env === 'prod' ? 'cdn.segment.com' : 'cdn.segment.build'
+        const host = "cdn.segment.com";
+
+        const status = s => (document.querySelector("p").innerText = s);
+
+        if (writeKey) {
+          !(function() {
+            var analytics = (window.analytics = window.analytics || []);
+            if (!analytics.initialize)
+              if (analytics.invoked)
+                window.console &&
+                  console.error &&
+                  alert("Segment snippet included twice.");
+              else {
+                analytics.invoked = !0;
+                analytics.methods = [
+                  "trackSubmit",
+                  "trackClick",
+                  "trackLink",
+                  "trackForm",
+                  "pageview",
+                  "identify",
+                  "reset",
+                  "group",
+                  "track",
+                  "ready",
+                  "alias",
+                  "debug",
+                  "page",
+                  "once",
+                  "off",
+                  "on",
+                  "setAnonymousId",
+                  "addSourceMiddleware",
+                  "addDestinationMiddleware"
+                ];
+                analytics.factory = function(t) {
+                  return function() {
+                    var e = Array.prototype.slice.call(arguments);
+                    e.unshift(t);
+                    analytics.push(e);
+                    return analytics;
+                  };
+                };
+                for (var t = 0; t < analytics.methods.length; t++) {
+                  var e = analytics.methods[t];
+                  analytics[e] = analytics.factory(e);
+                }
+                analytics.load = function(t, e) {
+                  var n = document.createElement("script");
+                  n.type = "text/javascript";
+                  n.async = !0;
+                  n.src =
+                    "https://" +
+                    host +
+                    "/analytics.js/v1/" +
+                    t +
+                    "/analytics.js";
+                  var a = document.getElementsByTagName("script")[0];
+                  a.parentNode.insertBefore(n, a);
+                  analytics._loadOptions = e;
+                };
+                analytics.SNIPPET_VERSION = "4.1.0";
+                analytics.load(writeKey);
+                analytics.addDestinationMiddleware("Mixpanel", [
+                  (...args) => {
+                    console.log(args);
+                    const { payload, next } = args[0];
+                    payload.obj.event += " Middlewared";
+                    console.log("Type", payload.type());
+                    delete payload.obj.event.userId;
+                    if (payload.type() === "identify") {
+                      delete payload.obj.userId;
+                    }
+                    console.log("Payload", payload.obj);
+                    next(payload);
+                  }
+                ]);
+                analytics.page();
+              }
+          })();
+
+          status("loading ajs");
+
+          analytics.ready(() => {
+            analytics.debug();
+
+            status(
+              `ajs ${analytics.VERSION} loaded, write key: ${
+                analytics._integrations["Segment.io"].options.apiKey
+              }`
+            );
+          });
+        } else {
+          status("ajs not loaded, enter a write key");
+        }
+      }
+      
+// Source middleware (adds a new key/value pair)
+var smw1 = function({ payload, next, integrations }) {
+  payload.obj.context.ip = "redacted";
+  next(payload);
+};
+
+// Source middleware 2 (chan)
+var smw2 = function({ payload, next, integrations }) {
+  payload.obj.userId = payload.obj.userId + "foo";
+  next(payload);
+};
+
+// Source middleware 3 (logging)
+var smw3 = function({ payload, next, integrations }) {
+  console.log("I'm a middleware that just prints the input I receive.", {
+    payload,
+    next,
+    integrations
+  });
+  next(payload);
+};
+
+// Source middleware 4 ( changes event name )
+var smw4 = function({ payload, next, integrations }) {
+  payload.obj.event += " SM";
+  next(payload);
+};
+
+// Source middleware 5 (creates sessionId and store in session storage)
+var smw5 = function({ payload, next, integrations }) {
+  let sessionId = sessionStorage.getItem("ajs_session_id");
+  if (!sessionId) {
+    // generate random id
+    sessionId =
+      Math.random()
+        .toString(36)
+        .substring(2, 15) +
+      Math.random()
+        .toString(36)
+        .substring(2, 15);
+    // save in session storage
+    sessionStorage.setItem("ajs_session_id", sessionId);
+  }
+  payload.obj.sid = sessionId;
+
+  next(payload);
+};
+
+// Source middleware 6 (creates sessionId that resets every 20 seconds in localStorage)
+var smw6 = function({ payload, next, integrations }) {
+  let sessionInfo = localStorage.getItem("ajs_session_id");
+  if (!sessionInfo || JSON.parse(sessionInfo).expiry < Date.now()) {
+    // generate random id
+    const sessionId =
+      Math.random()
+        .toString(36)
+        .substring(2, 15) +
+      Math.random()
+        .toString(36)
+        .substring(2, 15);
+
+    // 20 second expiry
+    const expiry = Date.now() + 1000 * 20;
+    // create session object and stringify it
+    sessionInfo = JSON.stringify({ sessionId, expiry });
+    // save in session storage
+    localStorage.setItem("ajs_session_id", sessionInfo);
+  }
+  payload.obj.sid = JSON.parse(sessionInfo).sessionId;
+
+  next(payload);
+};
+
+window.addMiddlewares = () => {
+  window.analytics.addSourceMiddleware(smw6);
+  window.analytics.addSourceMiddleware(smw1);
+  window.analytics.addSourceMiddleware(smw2);
+  window.analytics.addSourceMiddleware(smw3);
+  window.analytics.addSourceMiddleware(smw4);
+};
+
+/*
+analytics.addDestinationMiddleware('Mixpanel', [
+  (...args) => {
+    console.log(args);
+    const {payload, next} = args[0];
+    payload.obj.event += " Middlewared";
+    next(payload);
+  }
+]);
+*/
+    </script>
+    <script src="src/index.js"></script>
+  </body>
+</html>
