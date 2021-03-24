@@ -20,7 +20,7 @@
 Source: <a href="https://app.segment.com/segment-irina-gorelik/sources/javascript/overview">https://app.segment.com/segment-irina-gorelik/sources/javascript/overview</a>
  <br />
     <br />
-    Change: 1
+    Change: 2
     <br />
     <br />
     <button class="btn btn-primary" onclick="analytics.track('Product Viewed')">
@@ -70,7 +70,7 @@ var smw1 = function({ payload, next, integrations }) {
       
 // Source middleware (adds a new key/value pair)
 var smw8 = function({ payload, next, integrations }) {
-  console.log(payload);
+  console.log(payload.obj.messageId);
   next(payload);
 };
 
