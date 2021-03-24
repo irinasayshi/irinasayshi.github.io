@@ -20,6 +20,9 @@
 Source: <a href="https://app.segment.com/segment-irina-gorelik/sources/javascript/overview">https://app.segment.com/segment-irina-gorelik/sources/javascript/overview</a>
  <br />
     <br />
+    Change: 1
+    <br />
+    <br />
     <button class="btn btn-primary" onclick="analytics.track('Product Viewed')">
       Track: Product Viewed
     </button>
@@ -62,6 +65,12 @@ Source: <a href="https://app.segment.com/segment-irina-gorelik/sources/javascrip
 // Source middleware (adds a new key/value pair)
 var smw1 = function({ payload, next, integrations }) {
   payload.obj.context.ip = "redacted";
+  next(payload);
+};
+      
+// Source middleware (adds a new key/value pair)
+var smw8 = function({ payload, next, integrations }) {
+  console.log(payload);
   next(payload);
 };
 
@@ -133,11 +142,8 @@ var smw6 = function({ payload, next, integrations }) {
 };
 
 window.addMiddlewares = () => {
-  window.analytics.addSourceMiddleware(smw6);
   window.analytics.addSourceMiddleware(smw1);
-  window.analytics.addSourceMiddleware(smw2);
-  window.analytics.addSourceMiddleware(smw3);
-  window.analytics.addSourceMiddleware(smw4);
+  window.analytics.addSourceMiddleware(smw8);
 };
 
 /*
